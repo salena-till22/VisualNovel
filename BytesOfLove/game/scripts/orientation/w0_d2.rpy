@@ -93,17 +93,13 @@ label w0_d2:
     hide cpp_normal
     show cpp_talk
     c "\"Shut up, did it ever occur to you that maybe everyone is quiet for a reason?\""
-
     hide cpp_talk
     show cpp_normal
     "{i}You obediently sit down, flustered{/i}"
-
-    hide cpp_normal
-    show bsl_talk
     bsl "\"Alright, it looks like everyone is here.\""
     bsl "\"Go ahead and take some time to introduce yourself to those around you.\""
 
-    hide bsl_talk
+    hide cpp_normal
     show python_normal with dissolve
     hide python_normal
     show python_happy
@@ -149,9 +145,9 @@ label w0_d2:
         "Make up excuse(s)":
             hide cpp_talk
             show cpp_normal
-            $ p_rep = reputation(r_rep, int(-affection_change * 0.5))
-            $ js_rep = reputation(r_rep, int(-affection_change * 0.5))
-            $ c_rep = reputation(r_rep, int(-affection_change * 0.5))
+            $ p_rep = reputation(r_rep, -1)
+            $ js_rep = reputation(r_rep, -1)
+            $ c_rep = reputation(r_rep, -1)
             mc "\"So, I was about to get in my car this morning, when suddenly I heard a faint meow.\""
             mc "\"Looking up, I was able to see a cat 20 feet up the tree.\""
             mc "\"I had to help this cat get down, so I climbed the tree.\""
@@ -210,7 +206,7 @@ label w0_d2:
     # Another short interaction not worth seperating files. Temporarily named everything "Respond to X" since I didnt know what to put - Lazzy
     menu w0_d2_BreakoutResponse1:
         "Respond to Javascript":
-            $ js_rep = reputation(js_rep, affection_change)
+            $ js_rep = reputation(js_rep, 2)
             mc "\"Yeah, it is pretty annoying that your mom won’t leave you alone.\""
             mc "\"Parents can be so annoying.\""
             mc "\"I wish my mom had cared enough to come with me to orientation though.\""
@@ -221,7 +217,7 @@ label w0_d2:
             show js_normal at left
 
         "Respond to Python":
-            $ p_rep = reputation(p_rep, affection_change)
+            $ p_rep = reputation(p_rep, 2)
             mc "\"Yeah I agree with Python, computer science definitely seems cool.\""
             mc "\"I’m just like you, I don’t have much experience, but I’m excited to learn.\""
             mc "\"And A.I. is a great field to make money in.\""
@@ -232,7 +228,7 @@ label w0_d2:
             show python_pocket at right
 
         "Respond to C++":
-            $ c_rep = reputation(c_rep, int(affection_change * 1.5))
+            $ c_rep = reputation(c_rep, 3)
             mc "\"I think it’s really cool that your parents work for those companies, C++.\""
             mc "\"I’ve never heard of iClicker or Mentimeter.\""
             mc "\"I don’t know much when it comes to coding, but you sound really experienced.\""
@@ -243,25 +239,20 @@ label w0_d2:
             hide cpp_talk
             show cpp_normal
     
-    show bsl_talk
     bsl "\"Alright now, we’re gonna start our guided tour of campus!\""
      
     #tour just started put scene change
     scene statue_garden with fade
-    show bsl_normal with dissolve
 
     "{i}The group tours campus as the breakout session leader talks about random trivia{/i}"
-    hide bsl_normal
-    show bsl_talk
     bsl "\"And if you look to your left you will see Half-A-Century Tower...\""
-    
-    hide bsl_talk
     show cpp_talk with dissolve
-
     c "\"Gosh, this is so boring.\""
     c "\"Who doesn’t know all of this stuff already?\""
     c "\"I mean did anybody really come to this school without already taking a tour?\""
-    show python_pocket_happy at left with dissolve
+    hide cpp_talk
+    show cpp_normal
+    show python_pocket_happy at left
     p "\"I didn’t... so this is interesting! I’m really enjoying this tour.\""    
     p "\"Like look at that cool statue over there.\""
     p "\"Don’t you guys think he looks cool?\""
@@ -280,6 +271,8 @@ label w0_d2:
     show python_pocket_happy at left
     p "\"Oh, well I didn’t realize that...\""
     hide cpp_normal
+    hide python_pocket_happy
+    show python_pocket at left
     show cpp_talk
     c "\"Yeah, I wouldn’t expect someone like you to know basic history...\""
     hide cpp_talk
@@ -301,17 +294,15 @@ label w0_d2:
             jump w0_d2_StatueDB
 
 label w0_d2_AfterStatue:
-    show bsl_talk with dissolve
     bsl "\"Now we will be taking a break for lunch.\""
 
     #change scene to cafeteria
     scene dining_hall with longer_fade 
 
-    show bsl_talk with dissolve
+
     bsl "\"The different food stations are located around the room.\""
     bsl "\"We will be meeting back in Room 283 in one hour.\""
     bsl "\"Feel free to sit wherever you want.\""
-    hide bsl_talk with dissolve
     mc "\"Oh jeez, I was going to the bathroom and now everyone is already sitting with each other.\""
     mc "\"Where are the girls I was talking to earlier?\""
     mc "\"I hope I didn’t hurt anyone’s feelings.\""
@@ -328,23 +319,20 @@ label w0_d2_AfterStatue:
             jump w0_d2_LunchJava
 
 label w0_d2_AfterLunch:
-    show bsl_talk with dissolve
     bsl "\"Okay guys, lunch is over.\""
     bsl "\"Everyone, make sure you get back to Room 283 in 10 minutes.\""
+
 
     scene breakout_room with fade 
 
     show python_normal at right with easeinright
     show js_normal at left with easeinleft
     show cpp_normal with dissolve
-    show bsl_talk
     bsl "\"Okay guys, we are now going to be playing a fun game to test your knowledge.\""
     bsl "\"Since The University of ByteBorough is renowned for the College of Computing...\""
     bsl "\"We’ll be playing a trivia game about computer science!\""
     bsl "\"We are going to be splitting the room up into groups based on the table you’re currently at.\""
     bsl "\"Everybody ready?\""
-
-    hide bsl_talk
     mc "\"Okay guys, I am really good at trivia.\""
     mc "\"And we are team 1, and one happens to also be my lucky number.\""
     mc "\"I don’t know much about computer science stuff yet, but I am really good at guessing.\""
@@ -358,10 +346,8 @@ label w0_d2_AfterLunch:
     show js_talk at left
     js "\"I’m sure we won’t need luck, we all seem pretty smart!\""
     hide js_talk
-    show js_smirk at right
-    show bsl_talk
+    show js_smirk at left
     bsl "\"Okay here is the first question\""
-    hide bsl_talk
     hide js_smirk
     show js_normal at left
     #display on screen
@@ -399,7 +385,7 @@ label w0_d2_AfterLunch:
             mc "\"They are both numbers and the asterisk has to mean multiply.\""
             mc "\"Surely the answer is just 15.\""
             show js_talk at left
-            js "\"Yeah, I don't know if your guess is as good as mine.\""
+            js "\"Yeah, I don't know. Your guess is as good as mine.\""
             js "\"I trust you to get it right, but what Python said makes sense.\""
             js "\"What do you think we should go with, [mc]?\""
             hide js_talk
@@ -418,19 +404,9 @@ label w0_d2_AfterLunch:
             hide js_talk
             show js_normal at left
 
-    window hide
-    show question_1 with dissolve:
-        xalign 0.5
-        yalign 0.05
-        xysize (1500, 800)    # Wait for the player to press a key (e.g. space).
-    
-    window show
-    "continue to answer"
-    
     menu w0_d2_q1answer:
-        
+        #
         "15":
-            hide question_1 with dissolve
             #techscore -
             mc "\"I think it’s 15 because 3 times 5 is 15.\""
             mc "\"It’s as simple as that, let’s not overthink this.\""
@@ -464,7 +440,6 @@ label w0_d2_AfterLunch:
             hide cpp_handhip_talk
             show cpp_handhip_normal
         "'15'":
-            hide question_1 with dissolve
             #tech score -
             mc "\"I think it's ‘15’ because 3 times 5 is 15.\""
             mc "\"But since the 5 has quotes around it, the answer will have quotes around it too.\""
@@ -499,7 +474,6 @@ label w0_d2_AfterLunch:
             hide cpp_handhip_talk
             show cpp_handhip_normal
         "'33333'":
-            hide question_1 with dissolve
             #tech score -
             mc "\"I think it’s ‘33333’ because the 5 has quotes around it and the 3 is just a normal number.\""
             mc "\"So something weird will have to happen.\""
@@ -531,13 +505,12 @@ label w0_d2_AfterLunch:
             show python_normal at right
             hide cpp_angry
             show cpp_handhip_talk
-            c "\"Oh my gosh you guys are so sensitive.\""
+            c "\"Oh my gosh, you guys are so sensitive.\""
             c "\"Whatever, I am sorry you got hurt by me stating facts.\""
             c "\"Let’s just see what everyone else said.\""
             hide cpp_handhip_talk
             show cpp_handhip_normal
         "'555'":
-            hide question_1 with dissolve
             # tech score+ (CORRECT ANSWER)
             mc "\"Okay, wait. I think I actually know this one.\""
             mc "\"Since the 5 has quotations around it, the variables won’t just multiply normally.\""
@@ -560,9 +533,9 @@ label w0_d2_AfterLunch:
                     mc "\"It makes printing something repeatedly quick and easy.\""
                     mc "\"You really need to study before school even starts.\""
                     mc "\"It seems like C++ and I might be the only smart people here...\""
-                    show js_talk at left
+                    show js_angry at left
                     js "\"Oh sorry..."
-                    hide js_talk
+                    hide js_angry
                     show js_angry at left
 
                 "Be Nice":
@@ -577,7 +550,7 @@ label w0_d2_AfterLunch:
                     js "\"Yeah, you’re right.\""
                     js "\"Thanks for the explanation, I think I get it now.\""
                     hide js_talk
-                    show js_normal at left
+                    show js_smirk at left
 
             show cpp_handhip_talk
             c "\"Jeez you guys are taking forever.\""
@@ -586,10 +559,10 @@ label w0_d2_AfterLunch:
             hide cpp_handhip_talk
             show cpp_handhip_normal
             hide js_angry
+            hide js_smirk
             show js_normal at left
 
         "ERROR":
-            hide question_1 with dissolve
             #tech score -
             mc "\"I think it's going to be an error.\""
             mc "\"There’s no way you can multiply a number by a string.\""
@@ -626,37 +599,26 @@ label w0_d2_AfterLunch:
             hide cpp_handhip_talk
             show cpp_handhip_normal
 
-    # show js_normal
-    # show cpp_normal at left
-    # show python_pocket at right
-    show bsl_talk
     bsl "\"Time’s up everyone!\""
     bsl "\"Write your answers down and hold them up.\""
-    hide bsl_talk
-    show bsl_normal
     "....."
-    hide bsl_normal
-    show bsl_talk
     bsl "\"Wow! It looks like every team got that first question right!\""
     bsl "\"This next one will be a little bit harder, get ready.\""
     bsl "\"What does the following Python code print?\""
-    hide bsl_talk
 
-    window hide
-    show question_2 with dissolve:
-        xalign 0.5
-        yalign 0.05
-        xysize (1500, 800)    # Wait for the player to press a key (e.g. space).
-    
-    window show
-    pause 2.0 
+    #DISPLAY:
+    #x = 4
+    #for i in range(x):
+    #x += 1
+    #print(x, end=‘’)
+
     p "\"Well I think I have some idea about this one.\""
     p "\"The first thing I see is that this might be an infinite loop.\""
     p "\"Because we iterate x times, but x keeps increasing.\""
     p "\"But, maybe that loop range only references x one time.\""
     p "\"What do you think C++?\""
     p "\"You seem to know everything...\""
-    
+
     c "\"Uhm, well actually I am not too sure.\""
     c "\"I was thinking it would be infinite as well.\""
     c "\"But I am really not sure.\""
@@ -679,9 +641,6 @@ label w0_d2_AfterLunch:
             
             c "\"Whatever.\""
             c "\"You guys didn't know the answer either.\""
-            hide cpp_talk
-    
-    
     p "\"Alright, well, do we have any ideas?\""
     p "\"JavaScript? What are you thinking?\""
 
@@ -692,10 +651,8 @@ label w0_d2_AfterLunch:
     js "\"At the same time I am just guessing.\""
     js "\"You make a decision, [mc].\""
     
-    pause 2.0
     menu w0_d2_mcdecision:
         "ERROR":
-            hide question_2 with dissolve
             #techScore -= 1
             mc "\"Okay I think that this will result in an error.\""
             mc "\"I don’t think it will know to only reference X once, at the start of the loop.\""
@@ -704,73 +661,41 @@ label w0_d2_AfterLunch:
             js "\"I disagree, but I’m not confident enough to say that I am right.\""
             js "\"I say let’s trust your intuition, [mc].\""
             js "\"Whatever happens, happens, it’s just a game.\""
-
-            hide js_talk
-            hide cpp_normal
-            hide python_pocket
-            show bsl_talk
+            
             bsl "\"Alright, time’s up!\""
             bsl "\"Everyone, write your answers down and hold them up.\""
-            hide bsl_talk
-            show bsl_normal
             "....."
-            hide bsl_normal
-            show bsl_talk
             bsl "\"Ooh, it looks like only one group got that right!\""
             bsl "\"The correct answer was 5678, only team 3 got that correct!\""
             bsl "\"The reason it was 5678 was because when the loop begins it references the value held in x.\""
             bsl "\"This is the only time x is referenced in relation to the number of iterations, so changing x afterwards has no effect on the amount of iterations.\""
             bsl "\"And before we print x we increment it, which is why the first number is 5, not 4.\""
 
-            hide bsl_talk
-            show js_normal # if it seems right, feel free to make these angry. i wouldn't know the vibes
-            show python_pocket at right
-            show cpp_normal at left
             mc "\"Oh man, that’s my bad guys.\""
             mc "\"I see how that is the answer.\""
 
             p "\"It’s okay we didn’t know either.\""
             p "\"If we did we would have said something.\""
         "4567":
-            hide question_2 with dissolve
             #techScore -= 1
-            hide js_normal
-            show js_smirk # might be a good idea to move this forward one?
             mc "\"I agree with JavaScript, this won’t be an error.\""
             mc "\"So first it will print out 4, then 5, then 6, then 7.\""
             mc "\"And then after 7 the loop will have iterated four times which was the original value of x.\""
             mc "\"Are we all good with this choice?\""
+
             c "\"I disagree, but I’m not confident enough to say that I am right.\""
             c "\"I say let’s trust your intuition, [mc].\""
             c "\"Whatever happens, happens, it’s just a game.\""            
-            hide js_smirk
-            show js_normal
-            hide cpp_normal
-            show cpp_talk at left
-            c "\"I disagree, but I’m not confident enough to say that I am right.\""
-            c "\"I say let’s trust your intuition, [mc].\""
-            c "\"Whatever happens, happens, it’s just a game.\""            
-            hide cpp_talk
-            hide python_pocket
-            hide js_normal
-            show bsl_talk
+
             bsl "\"Alright, time’s up!\""
             bsl "\"Everyone, write your answers down and hold them up.\""
-            hide bsl_talk
-            show bsl_normal
             "....."
-            hide bsl_normal
-            show bsl_talk
             bsl "\"Ooh, it looks like only one group got that right!\""
             bsl "\"The correct answer was 5678, only team 3 got that correct!\""
             bsl "\"The reason it was 5678 was because when the loop begins it references the value held in x.\""
             bsl "\"This is the only time x is referenced in relation to the number of iterations, so changing x afterwards has no effect on the amount of iterations.\""
             bsl "\"And before we print x we increment it, which is why the first number is 5, not 4.\""
 
-            hide bsl_talk
-            show cpp_normal at left
-            show js_normal
-            show python_pocket at right
             mc "\"Oh man, that’s my bad guys.\""
             mc "\"I see how that is the answer.\""
 
@@ -778,10 +703,7 @@ label w0_d2_AfterLunch:
             p "\"If we did we would have said something.\""
 
         "5678":
-            hide question_2 with dissolve
             #techScore += 1
-            hide js_normal
-            show js_smirk at left # read line 660
             mc "\"I agree with JavaScript, this won’t be an error.\""
             mc "\"So first it will increment x.\""
             mc "\"Then it will print out 5, then 6, then 7, then 8.\""
@@ -792,58 +714,25 @@ label w0_d2_AfterLunch:
             c "\"I say let’s trust your intuition, [mc].\""
             c "\"Whatever happens, happens, it’s just a game.\""            
 
-            hide js_smirk
-            show js_normal at left
-            hide cpp_talk
-            
-            c "\"I disagree, but I’m not confident enough to say that I am right.\""
-            c "\"I say let’s trust your intuition, [mc].\""
-            c "\"Whatever happens, happens, it’s just a game.\""            
-            hide cpp_talk
-            hide js_normal 
-            hide python_pocket 
-            hide python_normal 
-            hide cpp_handhip_normal 
-            show bsl_talk
             bsl "\"Alright, time’s up!\""
             bsl "\"Everyone, write your answers down and hold them up.\""
-            hide bsl_talk
-            show bsl_normal
             "....."
 
-            hide bsl_normal
-            show bsl_talk
             bsl "\"Ooh, it looks like only one group got that right!\""
             bsl "\"The correct answer was 5678, only team 1 got that correct!\""
             bsl "\"The reason it was 5678 was because when the loop begins it references the value held in x.\""
             bsl "\"This is the only time x is referenced in relation to the number of iterations, so changing x afterwards has no effect on the amount of iterations.\""
             bsl "\"And before we print x we increment it, which is why the first number is 5, not 4.\""
-            hide bsl_talk
-            show cpp_normal at left
-            show js_normal
-            show python_pocket at right
             mc "\"Oh nice, we got it right!\""
             mc "\"Good job guys, I am glad we were able to work through that!\""
 
             p "\"Yes! We make such a good team.\""
 
-    hide cpp_normal # if modified above, make sure to change these
-    hide js_normal
-    hide python_pocket
-    with dissolve
     "Some time later..."
-    show bsl_talk
     bsl "\"And the team with the most points is...\""
-    hide bsl_talk
-    show bsl_normal
     "....."
-    hide bsl_normal
-    show bsl_talk
     bsl "\"Team 1!\""
-    hide bsl_talk
-    show cpp_normal at left
-    show js_talk
-    show python_pocket at right
+
     js "\"OMG Yes!!!\""
     p "\"That was so much fun!\""
     c "{i}Smiles{/i}"
@@ -858,6 +747,7 @@ label w0_d2_AfterLunch:
     mc "\"One thing is for sure, I can’t stay up late again.\""
     "{i}You let out a very, very large yawn.{/i}"
     mc "\"I don’t think I could if I wanted to...\""
-    "{i}zzz...{/i}"
+    "{i}zzz{/i}"
 
 jump w0_d3
+
