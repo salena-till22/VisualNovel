@@ -252,7 +252,7 @@ label w0_d2:
     c "\"I mean did anybody really come to this school without already taking a tour?\""
     hide cpp_talk
     show cpp_normal
-    show python_pocket_happy at left
+    show python_pocket_happy at left with dissolve
     p "\"I didn’t... so this is interesting! I’m really enjoying this tour.\""    
     p "\"Like look at that cool statue over there.\""
     p "\"Don’t you guys think he looks cool?\""
@@ -270,9 +270,9 @@ label w0_d2:
     hide python_pocket
     show python_pocket_happy at left
     p "\"Oh, well I didn’t realize that...\""
-    hide cpp_normal
     hide python_pocket_happy
     show python_pocket at left
+    hide cpp_normal
     show cpp_talk
     c "\"Yeah, I wouldn’t expect someone like you to know basic history...\""
     hide cpp_talk
@@ -505,7 +505,7 @@ label w0_d2_AfterLunch:
             show python_normal at right
             hide cpp_angry
             show cpp_handhip_talk
-            c "\"Oh my gosh, you guys are so sensitive.\""
+            c "\"Oh my gosh you guys are so sensitive.\""
             c "\"Whatever, I am sorry you got hurt by me stating facts.\""
             c "\"Let’s just see what everyone else said.\""
             hide cpp_handhip_talk
@@ -550,7 +550,7 @@ label w0_d2_AfterLunch:
                     js "\"Yeah, you’re right.\""
                     js "\"Thanks for the explanation, I think I get it now.\""
                     hide js_talk
-                    show js_smirk at left
+                    show js_normal at left
 
             show cpp_handhip_talk
             c "\"Jeez you guys are taking forever.\""
@@ -559,7 +559,6 @@ label w0_d2_AfterLunch:
             hide cpp_handhip_talk
             show cpp_handhip_normal
             hide js_angry
-            hide js_smirk
             show js_normal at left
 
         "ERROR":
